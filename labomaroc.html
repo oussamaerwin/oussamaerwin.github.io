@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labomaroc - تحاليل طبية شاملة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for better Arabic rendering and overall aesthetics */
+        /* Noto Sans Arabic for Arabic text, Inter for numbers/latin text if any */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+            background-color: #f8fafc; /* Very light blue-gray background */
+            color: #1e293b; /* Darker slate text for professionalism */
+            line-height: 1.7; /* Increased line height for better readability */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem; /* More generous padding */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.25rem; /* Even more rounded corners */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07); /* Softer, deeper shadow */
+            padding: 2.5rem; /* Increased internal padding */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e2e8f0; /* Subtle border for definition */
+            display: flex; /* Ensure flexbox for vertical alignment inside cards */
+            flex-direction: column; /* Stack content vertically */
+            justify-content: space-between; /* Push price tag to bottom */
+        }
+        .card:hover {
+            transform: translateY(-10px); /* More pronounced lift on hover */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Stronger shadow on hover */
+        }
+        .price-tag {
+            background-color: #10b981; /* Vibrant emerald green */
+            color: #ffffff;
+            padding: 0.75rem 1.5rem; /* Larger padding */
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: 700; /* Bolder price tag */
+            font-size: 1.35rem; /* Larger font size for price */
+            letter-spacing: 0.05em; /* Slight letter spacing for emphasis */
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3); /* Shadow for price tag */
+        }
+        h1, h2, h3 {
+            font-family: 'Noto Sans Arabic', sans-serif; /* Ensure headings use Arabic font */
+            font-weight: 800; /* Extra bold headings */
+            color: #1a202c; /* Darker heading color for main content */
+        }
+        p {
+            font-weight: 400; /* Regular weight for body text */
+            font-size: 1.1rem; /* Slightly larger body text for readability */
+            color: #475569; /* Slightly softer body text color */
+        }
+        /* Specific header text styling to ensure white color */
+        header h1, header p {
+            color: #ffffff; /* Explicitly set to white for header text */
+        }
+
+        .tab-button {
+            background-color: #cbd5e1; /* Light gray for inactive tabs */
+            color: #475569;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap; /* Prevent wrapping */
+        }
+        .tab-button.active {
+            background-color: #2563eb; /* Blue for active tab */
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+        .tab-content {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease-out; /* Fade in animation */
+        }
+        .tab-content.active {
+            display: block; /* Show active tab content */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .search-input {
+            border: 2px solid #cbd5e1;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container">
+        <header class="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-8 md:p-10 rounded-2xl shadow-xl mb-10 text-center">
+            <div class="mb-6">
+                <svg class="mx-auto h-28 w-28 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z"/>
+                    <path d="M13 12h2l-3-3-3 3h2v4h2v-4z"/>
+                </svg>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-3 leading-tight">لابوماروك (Labomaroc)</h1>
+            <p class="text-2xl md:text-3xl font-light">بوابتك الشاملة للتحاليل الطبية في المغرب</p>
+            <p class="text-lg md:text-xl mt-6 max-w-3xl mx-auto">
+                اكتشف قائمة شاملة للتحاليل الطبية المتاحة في المغرب مع أسعارها التقديرية، لمساعدتك في اتخاذ قرارات صحية مستنيرة.
+            </p>
+        </header>
+
+        <main class="py-10">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-blue-900">استكشف التحاليل الطبية</h2>
+
+            <div class="mb-12 flex justify-center">
+                <input type="text" id="searchInput" onkeyup="filterAnalyses()" placeholder="ابحث عن تحليل..." class="search-input max-w-xl">
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-12" id="tab-buttons">
+                <button class="tab-button active" onclick="openTab('all-analyses')">جميع التحاليل</button>
+                <button class="tab-button" onclick="openTab('blood-tests')">تحاليل الدم</button>
+                <button class="tab-button" onclick="openTab('hormone-tests')">تحاليل الهرمونات</button>
+                <button class="tab-button" onclick="openTab('other-tests')">تحاليل أخرى</button>
+            </div>
+
+            <div id="all-analyses" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل الدم الشامل (CBC)</h3>
+                            <p class="text-gray-700 mb-5">
+                                فحص يقيس مكونات الدم المختلفة مثل خلايا الدم الحمراء والبيضاء والصفائح الدموية، لتقييم الصحة العامة والكشف عن العديد من الحالات.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">200 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل سكر الدم</h3>
+                            <p class="text-gray-700 mb-5">
+                                يستخدم لقياس مستوى الجلوكوز في الدم، وهو مهم لتشخيص ومراقبة مرض السكري وتقييم استجابة الجسم للسكر.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">150 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل الكوليسترول والدهون</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيس مستويات الكوليسترول الكلي، الكوليسترول الضار (LDL)، الكوليسترول النافع (HDL)، والدهون الثلاثية لتقييم خطر أمراض القلب.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">350 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحاليل وظائف الكبد</h3>
+                            <p class="text-gray-700 mb-5">
+                                مجموعة من التحاليل لتقييم صحة الكبد ووظائفه، والكشف عن أي تلف أو التهاب في الكبد.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">400 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحاليل وظائف الكلى</h3>
+                            <p class="text-gray-700 mb-5">
+                                تقيس مستويات الكرياتينين واليوريا في الدم لتقييم كفاءة الكلى في تصفية الفضلات من الجسم.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">300 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="hormone-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحاليل الغدة الدرقية</h3>
+                            <p class="text-gray-700 mb-5">
+                                تساعد في تشخيص اضطرابات الغدة الدرقية عن طريق قياس مستويات الهرمونات مثل TSH، T3، و T4.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">500 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="other-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل البول</h3>
+                            <p class="text-gray-700 mb-5">
+                                فحص روتيني يكشف عن مشاكل في المسالك البولية أو الكلى، ويمكن أن يشير إلى حالات صحية أخرى.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">100 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="hormone-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل فيتامين د</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيس مستوى فيتامين د في الدم، وهو ضروري لصحة العظام والمناعة، ونقصه شائع.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">600 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل مخزون الحديد</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيم مستويات الحديد في الجسم، مهم لتشخيص فقر الدم الناتج عن نقص الحديد أو زيادة الحديد.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">450 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="hormone-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل فيتامين ب12</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيس مستوى فيتامين ب12 في الدم، وهو ضروري لوظائف الأعصاب وتكوين خلايا الدم الحمراء.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">550 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل حمض اليوريك</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيس مستوى حمض اليوريك في الدم، ويستخدم لتشخيص النقرس ومشاكل الكلى.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">250 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل إنزيم الكرياتين كيناز (CK)</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيس مستوى إنزيم CK في الدم، والذي يمكن أن يشير إلى تلف العضلات أو القلب.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">320 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="blood-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل البروتين المتفاعل C (CRP)</h3>
+                            <p class="text-gray-700 mb-5">
+                                يقيس مستوى CRP في الدم، وهو مؤشر على الالتهاب في الجسم.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">380 درهم</span>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-col justify-between analysis-item" data-category="other-tests">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-800 mb-3">تحليل البراز</h3>
+                            <p class="text-gray-700 mb-5">
+                                فحص عينة من البراز للكشف عن مشاكل الجهاز الهضمي، الالتهابات، أو الطفيليات.
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <span class="price-tag">200 درهم</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blood-tests" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    </div>
+            </div>
+
+            <div id="hormone-tests" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    </div>
+            </div>
+
+            <div id="other-tests" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    </div>
+            </div>
+        </main>
+
+        <footer class="text-center py-8 mt-10 bg-gray-200 rounded-2xl shadow-lg text-gray-700">
+            <p class="text-lg font-medium">&copy; 2025 لابوماروك (Labomaroc). جميع الحقوق محفوظة.</p>
+            <p class="text-base mt-3 opacity-90">الأسعار المذكورة هي تقديرية وقد تختلف بناءً على المختبر والمنطقة.</p>
+            <p class="text-base mt-3 opacity-90">للاستفسارات، يرجى الاتصال بنا عبر [معلومات الاتصال هنا].</p>
+        </footer>
+    </div>
+
+    <script>
+        // Function to handle tab switching
+        function openTab(tabId) {
+            // Get all tab content elements
+            const tabContents = document.querySelectorAll('.tab-content');
+            // Hide all tab contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Get all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            // Deactivate all tab buttons
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show the selected tab content
+            const selectedTabContent = document.getElementById(tabId);
+            if (selectedTabContent) {
+                selectedTabContent.classList.add('active');
+            }
+
+            // Activate the clicked tab button
+            const clickedButton = document.querySelector(`[onclick="openTab('${tabId}')"]`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+
+            // Filter analyses based on the selected tab
+            filterAnalysesByTab(tabId);
+        }
+
+        // Function to filter analyses based on search input and active tab
+        function filterAnalyses() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const activeTabButton = document.querySelector('.tab-button.active');
+            const activeTabId = activeTabButton ? activeTabButton.getAttribute('onclick').match(/'(.*)'/)[1] : 'all-analyses';
+
+            const analysisItems = document.querySelectorAll('#all-analyses .analysis-item');
+
+            analysisItems.forEach(item => {
+                const title = item.querySelector('h3').innerText.toLowerCase();
+                const description = item.querySelector('p').innerText.toLowerCase();
+                const category = item.dataset.category;
+
+                const matchesSearch = title.includes(searchInput) || description.includes(searchInput);
+                const matchesTab = (activeTabId === 'all-analyses' || category === activeTabId.replace('-tests', ''));
+
+                if (matchesSearch && matchesTab) {
+                    item.style.display = 'flex'; // Show the item
+                } else {
+                    item.style.display = 'none'; // Hide the item
+                }
+            });
+        }
+
+        // Function to filter analyses when a tab is clicked
+        function filterAnalysesByTab(tabId) {
+            // Ensure search filter is also applied when tabs are switched
+            filterAnalyses();
+        }
+
+        // Initialize the first tab as active and filter analyses on load
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('all-analyses'); // Ensure 'All Analyses' tab is active on load
+            // filterAnalyses() is called by openTab()
+        });
+    </script>
+</body>
+</html>
